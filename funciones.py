@@ -1,4 +1,3 @@
-
 class Ticket:
     def __init__(self, id, patent, tipo_de_vehiculo, forma_de_pago, pais_cabina, kilomentros):
         self.id = id
@@ -113,6 +112,37 @@ def patente(mensaje):
             print("La patente debe tener 6 o 7 dígitos. Inténtalo nuevamente.")
 
     return entrada
+
+
+def pais_cabina(patente):
+
+    if len(patente) == 7:
+        if patente[0:2].isalpha() and patente[2:5].isdigit() and patente[5:7].isalpha():
+            # argentina AA333AA
+            procedencia_vehiculo = "Argentina"
+
+        elif patente[0:3].isalpha() and patente[3].isdigit() and patente[4].isalpha() and patente[5:7].isdigit():
+            # brasil
+            procedencia_vehiculo = "Brasil"
+        elif patente[0] == " " and patente[1:5].isalpha() and patente[5:7].isdigit():
+            # chile
+            procedencia_vehiculo = "Chile"
+        elif patente[0:2].isalpha() and patente[2:].isdigit():
+            # Bolivia
+            procedencia_vehiculo = "Bolivia"
+        elif patente[0:4].isalpha() and patente[4:].isdigit():
+            # paraguay
+            procedencia_vehiculo = "Paraguay"
+        elif patente[0:3].isalpha() and patente[3:].isdigit():
+            # uruguay
+            procedencia_vehiculo = "Uruguay"
+        else:
+            # otro
+            procedencia_vehiculo = "Otro"
+    else:
+        procedencia_vehiculo = "Otro"
+
+    return procedencia_vehiculo
 
 
 def nuevo_ticket():

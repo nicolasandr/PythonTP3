@@ -15,6 +15,7 @@ def mostrar_menu():
     print("\n1_ Crear arreglo de registros")
     print("2_ Cargar por teclado los datos de un ticket")
     print("3_ leer arreglo")
+
     print("0_ Para finalizar\n")
 
 
@@ -55,9 +56,29 @@ def cargar_ticket(linea, arreglo_registros):
     return arreglo_registros
 
 
+def menor_a_mayor(arr):
+    n = len(arr)
+
+    for i in range(n):
+        # Encontrar el índice del elemento mínimo en el subarreglo no ordenado
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j].id < arr[min_idx].id:
+                min_idx = j
+
+        # Intercambiar el elemento mínimo encontrado con el elemento en la posición actual
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+
+
 def leerarchivo(arreglo_registros):
-    for i in arreglo_registros:
-        print(i)
+
+    menor_a_mayor(arreglo_registros)
+
+    for i in range(len(arreglo_registros)):
+        # consultamos el pais de cabina
+        pais_de_cabina = pais_cabina(arreglo_registros[i].patente)
+        # iprimimos cada fila con el nombre del pais de cabina
+        print(arreglo_registros[i], ":", pais_de_cabina)
 
 
 def Principal():

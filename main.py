@@ -15,6 +15,7 @@ def mostrar_menu():
     print("\n1_ Crear arreglo de registros")
     print("2_ Cargar por teclado los datos de un ticket")
     print("3_ leer arreglo")
+    print("4_ Buscar patente")
 
     print("0_ Para finalizar\n")
 
@@ -71,14 +72,82 @@ def menor_a_mayor(arr):
 
 
 def leerarchivo(arreglo_registros):
-
     menor_a_mayor(arreglo_registros)
 
     for i in range(len(arreglo_registros)):
-        # consultamos el pais de cabina
-        pais_de_cabina = pais_cabina(arreglo_registros[i].patente)
+        # consultamos el pais del que proviene el vehiculo
+        pais_vehiculo = pais_de_vehiculo(arreglo_registros[i].patente)
         # iprimimos cada fila con el nombre del pais de cabina
-        print(arreglo_registros[i], ":", pais_de_cabina)
+        print(arreglo_registros[i], ":", pais_vehiculo)
+
+
+def pais_cabina(pais):
+    pais_de_cabina = 0
+    # Cargamos el importe base en funcion de encuentra ubicada la cabina de peaje:
+    if pais == "0":
+        # Argentina
+        pais_de_cabina = "Argentina"
+    if pais == "1":
+        # Bolivia
+        pais_de_cabina = "Bolivia"
+    if pais == "2":
+        # Brasil
+        pais_de_cabina = "Brasil"
+    if pais == "3":
+        # Paraguay
+        pais_de_cabina = "Paraguay"
+    if pais == "4":
+        # Uruguay
+        pais_de_cabina = "Uruguay"
+
+    return pais_de_cabina
+
+
+def forma_de_pago(pago):
+    forma_pag = 0
+
+    if pago == "1":
+        forma_pag = "manual"
+    if pago == "2":
+        forma_pag = "Telepeaje"
+
+    return forma_pag
+
+
+def tipo_vehiculo(vehiculo):
+    tipo = 0
+    if vehiculo == "0":
+        tipo = "Motocicleta"
+    if vehiculo == "1":
+        tipo = "Automovil"
+    if vehiculo == "2":
+        tipo = "Camion"
+
+    return tipo
+
+
+def buscar_patente(arreglo_registros):
+    patente_a_buscar = str(patente(mensaje="\nIngrese patente (debe contener 7 digitos o 6 digitos si la patente es "
+                                           "chilena): "))
+    pais_de_cabina = str(tipo_vehiculo_o_pais_cabina(0, 4, mensaje="\nIngrese donde se encuentra la cabina (0: "
+                                                                   "Argentina - 1: Bolivia - 2: Brasil - 3: "
+                                                                   "Paraguay - 4: Uruguay): "))
+    se_encontro_patente = False
+
+    for i in range(len(arreglo_registros)):
+        if arreglo_registros[i].patente == patente_a_buscar and arreglo_registros[i].pais_cabina == pais_de_cabina:
+            print("\nPais del vehiculo:", pais_de_vehiculo(arreglo_registros[i].patente))
+            print("patente:", arreglo_registros[i].patente)
+            print("pais de cabina:", pais_cabina(arreglo_registros[i].pais_cabina))
+            print("Kilometros:", arreglo_registros[i].kilometros)
+            print("forma de pago:", forma_de_pago(arreglo_registros[i].forma_pago))
+            print("tipo de vehiculo:", tipo_vehiculo(arreglo_registros[i].tipo_vehiculo))
+            print("Codigo identificacion de ticket:", arreglo_registros[i].id)
+            se_encontro_patente = True
+            break
+    if not se_encontro_patente:
+        print(arreglo_registros[1].patente, " ", arreglo_registros[1].pais_cabina)
+        print("\nNo existe registro de la patente en el sistema.")
 
 
 def Principal():
@@ -109,6 +178,8 @@ def Principal():
             cargar_ticket(mi_lista, arreglo_registros)
         elif opcion == 3:
             leerarchivo(arreglo_registros)
+        elif opcion == 4:
+            buscar_patente(arreglo_registros)
 
 
 if __name__ == '__main__':

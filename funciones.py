@@ -39,7 +39,7 @@ def es_digito(car):
         return True
     return False
 
-
+# REVISAR Y BORRAR ESTA FUNCION!!!
 def cargar_identificado(valor, mensaje="Ingrese un valor: "):
     num = input(mensaje).replace(" ", "")
     tamanio = len(num)
@@ -114,7 +114,7 @@ def patente(mensaje):
     return entrada
 
 
-def pais_cabina(patente):
+def pais_de_vehiculo(patente):
 
     if len(patente) == 7:
         if patente[0:2].isalpha() and patente[2:5].isdigit() and patente[5:7].isalpha():

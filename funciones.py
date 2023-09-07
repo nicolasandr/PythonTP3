@@ -13,18 +13,6 @@ class Ticket:
         return r
 
 
-def codigo_patente(valor, tamanio, mensaje):
-    caracteres_sin_espacio = 0
-
-    while not valor == tamanio:
-        print("Error, debe ingresar un valor que contenga", valor, "digitos 0 6 digitos si la patente es chilena!")
-        print(valor, "y", tamanio)
-        caracteres_sin_espacio = str(input(mensaje).replace(" ", ""))
-        tamanio = len(caracteres_sin_espacio)
-
-    return caracteres_sin_espacio
-
-
 def cant_caracteres(valor, num):
     tamanio = len(num)
     if tamanio == valor:
@@ -50,7 +38,7 @@ def cargar_identificador(valor, mensaje="Ingrese un valor: "):
             if 0 < tamanio <= valor:
                 break
             else:
-                print("Error, debe ingresar un numero que contenga hasta", valor, "caracteres numericos!.")
+                print("Error, debe ingresar un numero que contenga hasta", valor, "caracteres numéricos!.")
         else:
             print("Debes ingresar un valor numérico válido entre(0-9999999999) .")
 
@@ -91,16 +79,16 @@ def forma_pago(manual, telepeaje, mensaje):
 def patente(mensaje):
     while True:
         entrada = input(mensaje).replace(" ", "")
-
-        if len(entrada) == 6:
-            entrada = " " + entrada  # Agrega un espacio al principio si la longitud es 6
+        entrada_mayusculas = entrada.upper()
+        if len(entrada_mayusculas) == 6:
+            entrada_mayusculas = " " + entrada_mayusculas  # Agrega un espacio al principio si la longitud es 6
             break
-        elif len(entrada) == 7:
+        elif len(entrada_mayusculas) == 7:
             break
         else:
             print("La patente debe tener 6 o 7 dígitos. Inténtalo nuevamente.")
 
-    return entrada
+    return entrada_mayusculas
 
 
 def pais_de_vehiculo(patente):

@@ -16,6 +16,7 @@ def mostrar_menu():
     print("2_ Cargar por teclado los datos de un ticket")
     print("3_ leer arreglo")
     print("4_ Buscar patente")
+    print("5_ Buscar codigo de ticket")
 
     print("0_ Para finalizar\n")
 
@@ -146,8 +147,27 @@ def buscar_patente(arreglo_registros):
             se_encontro_patente = True
             break
     if not se_encontro_patente:
-        print(arreglo_registros[1].patente, " ", arreglo_registros[1].pais_cabina)
         print("\nNo existe registro de la patente en el sistema.")
+
+
+def buscar_id(arreglo_registros):
+    codigo = str(cargar_identificador(10, mensaje="\nIngrese identificador (debe contener maximo 10 digitos): "))
+    codigo_ticket = codigo.zfill(10)
+    se_encontro_codigo = False
+
+    for i in range(len(arreglo_registros)):
+        if arreglo_registros[i].id == codigo_ticket:
+            if arreglo_registros[i].forma_pago == "1":
+                arreglo_registros[i].forma_pago = "2"
+            elif arreglo_registros[i].forma_pago == "2":
+                arreglo_registros[i].forma_pago = "1"
+            se_encontro_codigo = True
+            break
+
+    if not se_encontro_codigo:
+        print("\nNo existe registro del codigo de ticket ingresado en el sistema")
+    else:
+        leerarchivo(arreglo_registros)
 
 
 def Principal():
@@ -180,6 +200,8 @@ def Principal():
             leerarchivo(arreglo_registros)
         elif opcion == 4:
             buscar_patente(arreglo_registros)
+        elif opcion == 5:
+            buscar_id(arreglo_registros)
 
 
 if __name__ == '__main__':

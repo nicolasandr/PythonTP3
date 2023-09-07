@@ -17,6 +17,7 @@ def mostrar_menu():
     print("3_ leer arreglo")
     print("4_ Buscar patente")
     print("5_ Buscar codigo de ticket")
+    print("6_ Determinar la cantidad de vehiculos de cada pais que pasaron por las cabinas")
 
     print("0_ Para finalizar\n")
 
@@ -76,10 +77,11 @@ def leerarchivo(arreglo_registros):
     menor_a_mayor(arreglo_registros)
 
     for i in range(len(arreglo_registros)):
-        # consultamos el pais del que proviene el vehiculo
+        # consultamos el pais del que proviene el vehiculo (retorna numero)
+        pais = ["Argentina", "Brasil", "Chile", "Bolivia", "Paraguay", "Uruguay", "Otro"]
         pais_vehiculo = pais_de_vehiculo(arreglo_registros[i].patente)
         # iprimimos cada fila con el nombre del pais de cabina
-        print(arreglo_registros[i], ":", pais_vehiculo)
+        print(arreglo_registros[i], ":", pais[pais_vehiculo])
 
 
 def pais_cabina(pais):
@@ -128,6 +130,7 @@ def tipo_vehiculo(vehiculo):
 
 
 def buscar_patente(arreglo_registros):
+    pais = ["Argentina", "Brasil", "Chile", "Bolivia", "Paraguay", "Uruguay", "Otro"]
     patente_a_buscar = str(patente(mensaje="\nIngrese patente (debe contener 7 digitos o 6 digitos si la patente es "
                                            "chilena): "))
     pais_de_cabina = str(tipo_vehiculo_o_pais_cabina(0, 4, mensaje="\nIngrese donde se encuentra la cabina (0: "
@@ -137,7 +140,7 @@ def buscar_patente(arreglo_registros):
 
     for i in range(len(arreglo_registros)):
         if arreglo_registros[i].patente == patente_a_buscar and arreglo_registros[i].pais_cabina == pais_de_cabina:
-            print("\nPais del vehiculo:", pais_de_vehiculo(arreglo_registros[i].patente))
+            print("\nPais del vehiculo:", pais[pais_de_vehiculo(arreglo_registros[i].patente)])
             print("patente:", arreglo_registros[i].patente)
             print("pais de cabina:", pais_cabina(arreglo_registros[i].pais_cabina))
             print("Kilometros:", arreglo_registros[i].kilometros)
@@ -168,6 +171,16 @@ def buscar_id(arreglo_registros):
         print("\nNo existe registro del codigo de ticket ingresado en el sistema")
     else:
         leerarchivo(arreglo_registros)
+
+
+def cantidad_vehiculos(arreglo_registros):
+    pais = ["Argentina", "Brasil", "Chile", "Bolivia", "Paraguay", "Uruguay", "Otro"]
+    cont_vehic_por_pais = 7 * [0]
+    for i in range(len(arreglo_registros)):
+        cont_vehic_por_pais[pais_de_vehiculo(arreglo_registros[i].patente)] += 1
+
+    for i in range(len(cont_vehic_por_pais)):
+        print(pais[i], ":", cont_vehic_por_pais[i])
 
 
 def Principal():
@@ -202,6 +215,8 @@ def Principal():
             buscar_patente(arreglo_registros)
         elif opcion == 5:
             buscar_id(arreglo_registros)
+        elif opcion == 6:
+            cantidad_vehiculos(arreglo_registros)
 
 
 if __name__ == '__main__':

@@ -96,28 +96,29 @@ def pais_de_vehiculo(patente):
     if len(patente) == 7:
         if patente[0:2].isalpha() and patente[2:5].isdigit() and patente[5:7].isalpha():
             # argentina AA333AA
-            procedencia_vehiculo = "Argentina"
+            procedencia_vehiculo = 0
 
         elif patente[0:3].isalpha() and patente[3].isdigit() and patente[4].isalpha() and patente[5:7].isdigit():
             # brasil
-            procedencia_vehiculo = "Brasil"
+            procedencia_vehiculo = 1
         elif patente[0] == " " and patente[1:5].isalpha() and patente[5:7].isdigit():
             # chile
-            procedencia_vehiculo = "Chile"
+            procedencia_vehiculo = 2
         elif patente[0:2].isalpha() and patente[2:].isdigit():
             # Bolivia
-            procedencia_vehiculo = "Bolivia"
+            procedencia_vehiculo = 3
         elif patente[0:4].isalpha() and patente[4:].isdigit():
             # paraguay
-            procedencia_vehiculo = "Paraguay"
+            procedencia_vehiculo = 4
         elif patente[0:3].isalpha() and patente[3:].isdigit():
             # uruguay
-            procedencia_vehiculo = "Uruguay"
+            procedencia_vehiculo = 5
         else:
             # otro
-            procedencia_vehiculo = "Otro"
+            procedencia_vehiculo = 6
     else:
-        procedencia_vehiculo = "Otro"
+        # Otro
+        procedencia_vehiculo = 6
 
     return procedencia_vehiculo
 

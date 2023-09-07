@@ -39,17 +39,6 @@ def es_digito(car):
         return True
     return False
 
-# REVISAR Y BORRAR ESTA FUNCION!!!
-def cargar_identificado(valor, mensaje="Ingrese un valor: "):
-    num = input(mensaje).replace(" ", "")
-    tamanio = len(num)
-    while not cant_caracteres(valor, num) and not es_digito(num):
-        print("Error, debe ingresar un valor que contenga", valor, "digitos !")
-        print(tamanio, "y", num)
-        num = str(input(mensaje).replace(" ", ""))
-        tamanio = len(num)
-    return num
-
 
 def cargar_identificador(valor, mensaje="Ingrese un valor: "):
     while True:

@@ -8,8 +8,9 @@ class Ticket:
         self.kilometros = kilomentros
 
     def __str__(self):
-        r = str(self.id) + "\t" + str(self.patente) + "\t" + str(self.tipo_vehiculo) + "\t" + str(
-            self.forma_pago) + "\t" + str(self.pais_cabina) + "\t" + str(self.kilometros)
+        r = "Nro_Ticket:" + str(self.id) + "\t" + "Patente:" + str(self.patente) + "\t\t" + "Vehiculo:" + str(
+            self.tipo_vehiculo) + "\t\t" + "Forma_pago:" + str(
+            self.forma_pago) + "\t" + "Pais_cabina:" + str(self.pais_cabina) + "\t" + "Km:" + str(self.kilometros)
         return r
 
 
@@ -38,9 +39,13 @@ def cargar_identificador(valor, mensaje="Ingrese un valor: "):
             if 0 < tamanio <= valor:
                 break
             else:
+                print("\n==========================================================================")
                 print("Error, debe ingresar un numero que contenga hasta", valor, "caracteres numéricos!.")
+                print("==========================================================================\n")
         else:
-            print("Debes ingresar un valor numérico válido entre(0-9999999999) .")
+            print("\n===========================================================")
+            print("ATENCION! Debes ingresar un valor numérico válido entre(0-9999999999) .")
+            print("=============================================================\n")
 
     return val
 
@@ -54,9 +59,13 @@ def tipo_vehiculo_o_pais_cabina(valor1, valor2, mensaje):
             if valor1 <= valor <= valor2:
                 break
             else:
+                print("\n=============================================")
                 print("Error, debe ingresar un numero entre", valor1, "y", valor2, "!.")
+                print("=============================================\n")
         else:
+            print("\n========================================")
             print("Debes ingresar un valor numérico válido.")
+            print("========================================\n")
     return valor
 
 
@@ -69,9 +78,13 @@ def forma_pago(manual, telepeaje, mensaje):
             if valor == manual or valor == telepeaje:
                 break
             else:
+                print("\n==========================================================================================")
                 print("Error, debe ingresar un numero entre", manual, "y", telepeaje, ". (1: manual, 2 telepeaje)!")
+                print("==========================================================================================\n")
         else:
+            print("\n========================================")
             print("Debes ingresar un valor numérico válido.")
+            print("========================================\n")
 
     return valor
 
@@ -86,31 +99,31 @@ def patente(mensaje):
         elif len(entrada_mayusculas) == 7:
             break
         else:
+            print("\n===========================================================")
             print("La patente debe tener 6 o 7 dígitos. Inténtalo nuevamente.")
-
+            print("=============================================================\n")
     return entrada_mayusculas
 
 
-def pais_de_vehiculo(patente):
-
-    if len(patente) == 7:
-        if patente[0:2].isalpha() and patente[2:5].isdigit() and patente[5:7].isalpha():
+def pais_de_vehiculo(patentee):
+    if len(patentee) == 7:
+        if patentee[0:2].isalpha() and patentee[2:5].isdigit() and patentee[5:7].isalpha():
             # argentina AA333AA
             procedencia_vehiculo = 0
 
-        elif patente[0:3].isalpha() and patente[3].isdigit() and patente[4].isalpha() and patente[5:7].isdigit():
+        elif patentee[0:3].isalpha() and patentee[3].isdigit() and patentee[4].isalpha() and patentee[5:7].isdigit():
             # brasil
             procedencia_vehiculo = 1
-        elif patente[0] == " " and patente[1:5].isalpha() and patente[5:7].isdigit():
+        elif patentee[0] == " " and patentee[1:5].isalpha() and patentee[5:7].isdigit():
             # chile
             procedencia_vehiculo = 2
-        elif patente[0:2].isalpha() and patente[2:].isdigit():
+        elif patentee[0:2].isalpha() and patentee[2:].isdigit():
             # Bolivia
             procedencia_vehiculo = 3
-        elif patente[0:4].isalpha() and patente[4:].isdigit():
+        elif patentee[0:4].isalpha() and patentee[4:].isdigit():
             # paraguay
             procedencia_vehiculo = 4
-        elif patente[0:3].isalpha() and patente[3:].isdigit():
+        elif patentee[0:3].isalpha() and patentee[3:].isdigit():
             # uruguay
             procedencia_vehiculo = 5
         else:

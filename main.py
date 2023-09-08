@@ -1,32 +1,29 @@
 from funciones import *
 
 
-def lenguaje(linea_1):
-    idioma = 0
-    if "PT" in linea_1:
-        idioma = "Portugués"
-    if "ES" in linea_1:
-        idioma = "Español"
-    return idioma
-
-
 def mostrar_menu():
-    print("\nMENU PRINCIPAL:")
-    print("\n1_ Crear arreglo de registros")
-    print("2_ Cargar por teclado los datos de un ticket")
-    print("3_ leer arreglo")
-    print("4_ Buscar patente")
-    print("5_ Buscar codigo de ticket")
-    print("6_ Determinar la cantidad de vehiculos de cada pais que pasaron por las cabinas")
-    print("7_ Determinar el total de pagos realizados por cada tipo de vehiculo")
-
-    print("0_ Para finalizar\n")
+    print(
+        "\n"
+        "------------------------------------------------------------------------------------------------------------------------------------")
+    print("MENU PRINCIPAL:\n(Seleccione una opcion):")
+    print("\n\t1_ Crear lista de registros.")
+    print("\t2_ Cargar por teclado los datos de un ticket.")
+    print("\t3_ Leer lista de registros.")
+    print("\t4_ Buscar patente.")
+    print("\t5_ Buscar codigo de ticket.")
+    print("\t6_ Determinar la cantidad de vehiculos de cada pais que pasaron por las cabinas.")
+    print("\t7_ Determinar el total de pagos realizados por cada tipo de vehiculo.")
+    print("\t8_ Determinar el mayor monto obtenido del total de pagos realizados de vehiculo,mostrarlo y mostrar el mostrar "
+          "porcentaje sobre el total.")
+    print("\t9_ Promedio de los kilometros totales recorridos por todos los vehiculos.\n")
+    print("\t(Si desea finalizar presione: 0)")
+    print(
+        "-------------------------------------------------------------------------------------------------------------------------------------\n")
 
 
 def crear_arreglo():
     file = open("peajes-tp3.txt", "rt")
-    linea = file.readline().upper()
-    idioma = lenguaje(linea)
+    timestamp = file.readline()
     arreglo_registros = []
 
     while True:
@@ -36,12 +33,20 @@ def crear_arreglo():
 
         id = linea[0:10]
         patent = linea[10:17]
-        tipo_vehiculo = linea[17]
+        tipo_vehicul = linea[17]
         forma_pag = linea[18]
-        pais_cabina = linea[19]
+        pais_cabin = linea[19]
         kilomentros = linea[20:23]
 
-        arreglo_registros.append(Ticket(id, patent, tipo_vehiculo, forma_pag, pais_cabina, kilomentros))
+        arreglo_registros.append(Ticket(id, patent, tipo_vehicul, forma_pag, pais_cabin, kilomentros))
+
+    if arreglo_registros:
+        print("\n=====================================================================")
+        timestamp_sin_guion_med = timestamp.replace("â€“", "|")
+        print("Lista creada correctamente: ", timestamp_sin_guion_med)
+    else:
+        print("\n================================")
+        print("Error no se pudo crear el arreglo")
 
     file.close()
     return arreglo_registros
@@ -50,12 +55,15 @@ def crear_arreglo():
 def cargar_ticket(linea, arreglo_registros):
     id = linea[0:10]
     patent = linea[10:17]
-    tipo_vehiculo = linea[17]
+    tipo_vehicul = linea[17]
     forma_pag = linea[18]
-    pais_cabina = linea[19]
+    pais_cabin = linea[19]
     kilomentros = linea[20:23]
 
-    arreglo_registros.append(Ticket(id, patent, tipo_vehiculo, forma_pag, pais_cabina, kilomentros))
+    arreglo_registros.append(Ticket(id, patent, tipo_vehicul, forma_pag, pais_cabin, kilomentros))
+
+    print("\n--------------------------")
+    print("Registro creado con exito!")
 
     return arreglo_registros
 
@@ -82,7 +90,7 @@ def leerarchivo(arreglo_registros):
         pais = ["Argentina", "Brasil", "Chile", "Bolivia", "Paraguay", "Uruguay", "Otro"]
         pais_vehiculo = pais_de_vehiculo(arreglo_registros[i].patente)
         # iprimimos cada fila con el nombre del pais de cabina
-        print(arreglo_registros[i], ":", pais[pais_vehiculo])
+        print(arreglo_registros[i], "\t\tPais_de_patente:", pais[pais_vehiculo])
 
 
 def pais_cabina(pais):
@@ -152,7 +160,9 @@ def buscar_patente(arreglo_registros):
             se_encontro_patente = True
             break
     if not se_encontro_patente:
-        print("\nNo existe registro de la patente en el sistema.")
+        print("\n===============================================")
+        print("No existe registro de la patente en el sistema.")
+        print("===============================================\n")
 
 
 def buscar_id(arreglo_registros):
@@ -170,7 +180,10 @@ def buscar_id(arreglo_registros):
             break
 
     if not se_encontro_codigo:
-        print("\nNo existe registro del codigo de ticket ingresado en el sistema")
+        print("\n=================================================================")
+        print("No existe registro del codigo de ticket ingresado en el sistema.")
+        print("=================================================================\n")
+
     else:
         leerarchivo(arreglo_registros)
 
@@ -225,24 +238,67 @@ def pago_de_tickets(arreglo_registros):
         vec_acumulador[int(i.tipo_vehiculo)] += tarifa
 
     for i in range(len(vec_acumulador)):
-        print("\n")
         print(vehiculo[i], ":", vec_acumulador[i])
+    return vec_acumulador
+
+
+def mayor_monto(montos):
+    vehiculo = ["Motocicleta", "Automovil", "Camion"]
+    suma_montos_totales = 0
+    mayor = None
+    vehiculo_mayor = 0
+
+    for i in range(len(montos)):
+        if mayor is None or montos[i] > mayor:
+            mayor = montos[i]
+            vehiculo_mayor = vehiculo[i]
+        suma_montos_totales += montos[i]
+    print(vehiculo_mayor, ":", mayor)
+    print("porcentaje de monto mayor sobre el total: ", porcentaje(suma_montos_totales, mayor), "%")
+
+
+def porcentaje(total, mayor):
+    if total != 0:
+        porcent = int((mayor * 100) / total)
+    else:
+        porcent = total
+    return porcent
+
+
+def distancia_promedio(arreglo_registros):
+    acumulador = 0
+    acumulador_vehiculos = 0
+
+    for i in range(len(arreglo_registros)):
+        acumulador += int(arreglo_registros[i].kilometros)
+
+    promedio = round(acumulador / len(arreglo_registros), 2)
+
+    for i in range(len(arreglo_registros)):
+        if float(arreglo_registros[i].kilometros) > promedio:
+            acumulador_vehiculos += 1
+    print("\npromedio del total de km recorridos en el total de vehiculos: ", promedio)
+    print("cantidad vehiculos que recorrrieron distancia mayor al promedio: ", acumulador_vehiculos)
 
 
 def Principal():
     opcion = -1
     arreglo_registros = []
-
+    vec_acumulador = []
+    arreglo_cargado = False
+    entro_opcion_7 = False
     while opcion != 0:
         mostrar_menu()
-        opcion = int(input("Ingrese su elección: "))
-        if opcion == 1:
+        # entrada = input("Ingrese su elección: ")
+        opcion = tipo_vehiculo_o_pais_cabina(0, 9, "Ingrese una opcion: ")
+        if int(opcion) == 1:
             if len(arreglo_registros):
                 while True:
                     entrada = int(input("esta seguro que desea eliminar el arreglo? (1 = Aceptar / 2 = Cancelar): "))
                     if entrada == 1 or entrada == 2:
                         if entrada == 1:
                             arreglo_registros.clear()
+                            arreglo_cargado = False
                             break
                         if entrada == 2:
                             break
@@ -250,21 +306,44 @@ def Principal():
                         print("Debes ingresar un valor numérico válido entre(1 y 2).")
             else:
                 arreglo_registros = crear_arreglo()
+                arreglo_cargado = True
 
-        elif opcion == 2:
+        elif int(opcion) == 2 and arreglo_cargado:
             vector_nuevo_ticket = nuevo_ticket()
             mi_lista = ''.join(vector_nuevo_ticket)
             cargar_ticket(mi_lista, arreglo_registros)
-        elif opcion == 3:
+
+        elif int(opcion) == 3 and arreglo_cargado:
             leerarchivo(arreglo_registros)
-        elif opcion == 4:
+
+        elif int(opcion) == 4 and arreglo_cargado:
             buscar_patente(arreglo_registros)
-        elif opcion == 5:
+
+        elif int(opcion) == 5 and arreglo_cargado:
             buscar_id(arreglo_registros)
-        elif opcion == 6:
+
+        elif int(opcion) == 6 and arreglo_cargado:
             cantidad_vehiculos(arreglo_registros)
-        elif opcion == 7:
-            pago_de_tickets(arreglo_registros)
+
+        elif int(opcion) == 7 and arreglo_cargado:
+            vec_acumulador = pago_de_tickets(arreglo_registros)
+            entro_opcion_7 = True
+
+        elif int(opcion) == 8 and entro_opcion_7:
+            mayor_monto(vec_acumulador)
+
+        elif int(opcion) == 9 and arreglo_cargado:
+            distancia_promedio(arreglo_registros)
+
+        elif arreglo_cargado == False and opcion != 0:
+            print("\n=========================================")
+            print("ATENCION! Primero debe cargar el arreglo.")
+            print("=========================================\n")
+
+        elif entro_opcion_7 == False and opcion != 0:
+            print("\n=========================================================================================")
+            print("ATENCION! Primero debe determinar el total de pagos realizados por cada tipo de vehiculo.")
+            print("===========================================================================================\n")
 
 
 if __name__ == '__main__':

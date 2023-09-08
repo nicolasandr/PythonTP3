@@ -18,6 +18,7 @@ def mostrar_menu():
     print("4_ Buscar patente")
     print("5_ Buscar codigo de ticket")
     print("6_ Determinar la cantidad de vehiculos de cada pais que pasaron por las cabinas")
+    print("7_ Determinar el total de pagos realizados por cada tipo de vehiculo")
 
     print("0_ Para finalizar\n")
 
@@ -147,6 +148,7 @@ def buscar_patente(arreglo_registros):
             print("forma de pago:", forma_de_pago(arreglo_registros[i].forma_pago))
             print("tipo de vehiculo:", tipo_vehiculo(arreglo_registros[i].tipo_vehiculo))
             print("Codigo identificacion de ticket:", arreglo_registros[i].id)
+
             se_encontro_patente = True
             break
     if not se_encontro_patente:
@@ -183,6 +185,50 @@ def cantidad_vehiculos(arreglo_registros):
         print(pais[i], ":", cont_vehic_por_pais[i])
 
 
+def ticket(tipo, telepeaje, pais_de_cabina):
+    tarifa = 0
+    if pais_de_cabina == "0":
+        tarifa = 300
+    if pais_de_cabina == "2":
+        tarifa = 400
+    if pais_de_cabina == "4":
+        tarifa = 300
+    if pais_de_cabina == "3":
+        tarifa = 300
+    if pais_de_cabina == "1":
+        tarifa = 200
+    # moto
+    if tipo == "0":
+        tarifa = int(tarifa * 0.5)
+        if telepeaje == "2":
+            tarifa = int(tarifa * 0.9)
+    # auto
+    if tipo == "1":
+        tarifa = tarifa
+        if telepeaje == "2":
+            tarifa = int(tarifa * 0.9)
+    # camion
+    if tipo == "2":
+        tarifa = (tarifa * 1.6)
+        if telepeaje == "2":
+            tarifa = int(tarifa - (tarifa * 0.1))
+
+    return tarifa
+
+
+def pago_de_tickets(arreglo_registros):
+    vehiculo = ["Motocicleta", "Automovil", "Camion"]
+    vec_acumulador = 3 * [0]
+
+    for i in arreglo_registros:
+        tarifa = ticket(i.tipo_vehiculo, i.forma_pago, i.pais_cabina)
+        vec_acumulador[int(i.tipo_vehiculo)] += tarifa
+
+    for i in range(len(vec_acumulador)):
+        print("\n")
+        print(vehiculo[i], ":", vec_acumulador[i])
+
+
 def Principal():
     opcion = -1
     arreglo_registros = []
@@ -217,6 +263,8 @@ def Principal():
             buscar_id(arreglo_registros)
         elif opcion == 6:
             cantidad_vehiculos(arreglo_registros)
+        elif opcion == 7:
+            pago_de_tickets(arreglo_registros)
 
 
 if __name__ == '__main__':

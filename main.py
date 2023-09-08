@@ -290,7 +290,6 @@ def Principal():
     entro_opcion_7 = False
     while opcion != 0:
         mostrar_menu()
-        # entrada = input("Ingrese su elección: ")
         opcion = validacion_entrada(0, 9, "Ingrese una opcion: ")
         if int(opcion) == 1:
             if len(arreglo_registros):

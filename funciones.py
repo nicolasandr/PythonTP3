@@ -50,7 +50,7 @@ def cargar_identificador(valor, mensaje="Ingrese un valor: "):
     return val
 
 
-def tipo_vehiculo_o_pais_cabina(valor1, valor2, mensaje):
+def validacion_entrada(valor1, valor2, mensaje):
     while True:
         entrada = input(mensaje)
         if entrada.isdigit():
@@ -145,16 +145,16 @@ def nuevo_ticket():
     vector_ticket.append(patente(mensaje="\nIngrese patente (debe contener 7 digitos o 6 digitos si la patente es "
                                          "chilena): "))
     # tipo de vehiculo
-    vector_ticket.append(str(tipo_vehiculo_o_pais_cabina(0, 2, mensaje="\nIngrese el tipo de vehiculo: (0: motocicleta,"
+    vector_ticket.append(str(validacion_entrada(0, 2, mensaje="\nIngrese el tipo de vehiculo: (0: motocicleta,"
                                                                        "1: automóvil, ""2: camión): ")))
     # forma de pago
     vector_ticket.append(str(forma_pago(1, 2, mensaje="\ningrese la forma de pago (1: manual, 2 telepeaje): ")))
     # pais cabina
-    vector_ticket.append(str(tipo_vehiculo_o_pais_cabina(0, 4, mensaje="\nIngrese donde se encuentra la cabina (0: "
+    vector_ticket.append(str(validacion_entrada(0, 4, mensaje="\nIngrese donde se encuentra la cabina (0: "
                                                                        "Argentina - 1: Bolivia - 2: Brasil - 3: "
                                                                        "Paraguay - 4: Uruguay): ")))
     # distancia en km
-    distancia = str(tipo_vehiculo_o_pais_cabina(0, 999, mensaje="\nIngrese la distancia en Km entre (0 y 999): "))
+    distancia = str(validacion_entrada(0, 999, mensaje="\nIngrese la distancia en Km entre (0 y 999): "))
     vector_ticket.append(distancia.zfill(3))
 
     return vector_ticket

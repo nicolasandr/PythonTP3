@@ -13,8 +13,9 @@ def mostrar_menu():
     print("\t5_ Buscar codigo de ticket.")
     print("\t6_ Determinar la cantidad de vehiculos de cada pais que pasaron por las cabinas.")
     print("\t7_ Determinar el total de pagos realizados por cada tipo de vehiculo.")
-    print("\t8_ Determinar el mayor monto obtenido del total de pagos realizados de vehiculo,mostrarlo y mostrar el mostrar "
-          "porcentaje sobre el total.")
+    print(
+        "\t8_ Determinar el mayor monto obtenido del total de pagos realizados de vehiculo,mostrarlo y mostrar el mostrar "
+        "porcentaje sobre el total.")
     print("\t9_ Promedio de los kilometros totales recorridos por todos los vehiculos.\n")
     print("\t(Si desea finalizar presione: 0)")
     print(
@@ -142,9 +143,9 @@ def buscar_patente(arreglo_registros):
     pais = ["Argentina", "Brasil", "Chile", "Bolivia", "Paraguay", "Uruguay", "Otro"]
     patente_a_buscar = str(patente(mensaje="\nIngrese patente (debe contener 7 digitos o 6 digitos si la patente es "
                                            "chilena): "))
-    pais_de_cabina = str(tipo_vehiculo_o_pais_cabina(0, 4, mensaje="\nIngrese donde se encuentra la cabina (0: "
-                                                                   "Argentina - 1: Bolivia - 2: Brasil - 3: "
-                                                                   "Paraguay - 4: Uruguay): "))
+    pais_de_cabina = str(validacion_entrada(0, 4, mensaje="\nIngrese donde se encuentra la cabina (0: "
+                                                          "Argentina - 1: Bolivia - 2: Brasil - 3: "
+                                                          "Paraguay - 4: Uruguay): "))
     se_encontro_patente = False
 
     for i in range(len(arreglo_registros)):
@@ -290,7 +291,7 @@ def Principal():
     while opcion != 0:
         mostrar_menu()
         # entrada = input("Ingrese su elección: ")
-        opcion = tipo_vehiculo_o_pais_cabina(0, 9, "Ingrese una opcion: ")
+        opcion = validacion_entrada(0, 9, "Ingrese una opcion: ")
         if int(opcion) == 1:
             if len(arreglo_registros):
                 while True:

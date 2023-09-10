@@ -69,20 +69,6 @@ def cargar_ticket(linea, arreglo_registros):
     return arreglo_registros
 
 
-def menor_a_mayor(arr):
-    n = len(arr)
-
-    for i in range(n):
-        # Encontrar el índice del elemento mínimo en el subarreglo no ordenado
-        min_idx = i
-        for j in range(i + 1, n):
-            if arr[j].id < arr[min_idx].id:
-                min_idx = j
-
-        # Intercambiar el elemento mínimo encontrado con el elemento en la posición actual
-        arr[i], arr[min_idx] = arr[min_idx], arr[i]
-
-
 def leerarchivo(arreglo_registros):
     menor_a_mayor(arreglo_registros)
 
@@ -92,51 +78,6 @@ def leerarchivo(arreglo_registros):
         pais_vehiculo = pais_de_vehiculo(arreglo_registros[i].patente)
         # iprimimos cada fila con el nombre del pais de cabina
         print(arreglo_registros[i], "\t\tPais_de_patente:", pais[pais_vehiculo])
-
-
-def pais_cabina(pais):
-    pais_de_cabina = 0
-    # Cargamos el importe base en funcion de encuentra ubicada la cabina de peaje:
-    if pais == "0":
-        # Argentina
-        pais_de_cabina = "Argentina"
-    if pais == "1":
-        # Bolivia
-        pais_de_cabina = "Bolivia"
-    if pais == "2":
-        # Brasil
-        pais_de_cabina = "Brasil"
-    if pais == "3":
-        # Paraguay
-        pais_de_cabina = "Paraguay"
-    if pais == "4":
-        # Uruguay
-        pais_de_cabina = "Uruguay"
-
-    return pais_de_cabina
-
-
-def forma_de_pago(pago):
-    forma_pag = 0
-
-    if pago == "1":
-        forma_pag = "manual"
-    if pago == "2":
-        forma_pag = "Telepeaje"
-
-    return forma_pag
-
-
-def tipo_vehiculo(vehiculo):
-    tipo = 0
-    if vehiculo == "0":
-        tipo = "Motocicleta"
-    if vehiculo == "1":
-        tipo = "Automovil"
-    if vehiculo == "2":
-        tipo = "Camion"
-
-    return tipo
 
 
 def buscar_patente(arreglo_registros):
@@ -256,14 +197,6 @@ def mayor_monto(montos):
         suma_montos_totales += montos[i]
     print(vehiculo_mayor, ":", mayor)
     print("porcentaje de monto mayor sobre el total: ", porcentaje(suma_montos_totales, mayor), "%")
-
-
-def porcentaje(total, mayor):
-    if total != 0:
-        porcent = int((mayor * 100) / total)
-    else:
-        porcent = total
-    return porcent
 
 
 def distancia_promedio(arreglo_registros):

@@ -29,6 +29,73 @@ def es_digito(car):
     return False
 
 
+def porcentaje(total, mayor):
+    if total != 0:
+        porcent = int((mayor * 100) / total)
+    else:
+        porcent = total
+    return porcent
+
+
+def forma_de_pago(pago):
+    forma_pag = 0
+
+    if pago == "1":
+        forma_pag = "manual"
+    if pago == "2":
+        forma_pag = "Telepeaje"
+
+    return forma_pag
+
+
+def menor_a_mayor(arr):
+    n = len(arr)
+
+    for i in range(n):
+        # Encontrar el índice del elemento mínimo en el subarreglo no ordenado
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j].id < arr[min_idx].id:
+                min_idx = j
+
+        # Intercambiar el elemento mínimo encontrado con el elemento en la posición actual
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+
+
+def pais_cabina(pais):
+    pais_de_cabina = 0
+    # Cargamos el importe base en funcion de encuentra ubicada la cabina de peaje:
+    if pais == "0":
+        # Argentina
+        pais_de_cabina = "Argentina"
+    if pais == "1":
+        # Bolivia
+        pais_de_cabina = "Bolivia"
+    if pais == "2":
+        # Brasil
+        pais_de_cabina = "Brasil"
+    if pais == "3":
+        # Paraguay
+        pais_de_cabina = "Paraguay"
+    if pais == "4":
+        # Uruguay
+        pais_de_cabina = "Uruguay"
+
+    return pais_de_cabina
+
+
+def tipo_vehiculo(vehiculo):
+    tipo = 0
+    if vehiculo == "0":
+        tipo = "Motocicleta"
+    if vehiculo == "1":
+        tipo = "Automovil"
+    if vehiculo == "2":
+        tipo = "Camion"
+
+    return tipo
+
+
 def cargar_identificador(valor, mensaje="Ingrese un valor: "):
     while True:
         entrada = input(mensaje).replace(" ", "")
@@ -146,13 +213,13 @@ def nuevo_ticket():
                                          "chilena): "))
     # tipo de vehiculo
     vector_ticket.append(str(validacion_entrada(0, 2, mensaje="\nIngrese el tipo de vehiculo: (0: motocicleta,"
-                                                                       "1: automóvil, ""2: camión): ")))
+                                                              "1: automóvil, ""2: camión): ")))
     # forma de pago
     vector_ticket.append(str(forma_pago(1, 2, mensaje="\ningrese la forma de pago (1: manual, 2 telepeaje): ")))
     # pais cabina
     vector_ticket.append(str(validacion_entrada(0, 4, mensaje="\nIngrese donde se encuentra la cabina (0: "
-                                                                       "Argentina - 1: Bolivia - 2: Brasil - 3: "
-                                                                       "Paraguay - 4: Uruguay): ")))
+                                                              "Argentina - 1: Bolivia - 2: Brasil - 3: "
+                                                              "Paraguay - 4: Uruguay): ")))
     # distancia en km
     distancia = str(validacion_entrada(0, 999, mensaje="\nIngrese la distancia en Km entre (0 y 999): "))
     vector_ticket.append(distancia.zfill(3))
